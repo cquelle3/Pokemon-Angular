@@ -11,6 +11,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
   pokemonName: String = "";
   pokemonImage: String = "";
+  pokemonPokedexDesc: String = "";
 
   subscriptionList: Subscription[] = [];
 
@@ -23,11 +24,16 @@ export class AppComponent implements OnInit, OnDestroy{
 
   onEnter(){
     this.pokemonImage = "";
+    this.pokemonPokedexDesc = "";
     this.subscriptionList.push(this.pokeApiService.getPokemonInfo(this.pokemonName.trim().toLowerCase()).subscribe(
       (data) => {
-        //this.pokemonImage = data.sprites.versions['generation-iii']['firered-leafgreen']['front_default'];
         this.pokemonImage = data.sprites.front_default;
         console.log(data);
+        this.subscriptionList.push(this.pokeApiService.getSpeciesInfo(data.species.url).subscribe((speciesData) => {
+          var pokedex_entry = speciesData.flavor_text_entries.find((entry) => entry.language['name'] == 'en' && entry.version['name'] == 'red');
+          this.pokemonPokedexDesc = pokedex_entry?.flavor_text!;
+          console.log(this.pokemonPokedexDesc);
+        }));
       },
       (err: Error) => {}
     ));

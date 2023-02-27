@@ -7,16 +7,20 @@
         <div>
             <mat-form-field appearance="outline">
                 <mat-label>Pokemon</mat-label>
-                <input matInput [(ngModel)]="pokemonName" placeholder="Pokemon" (keyup.enter)="onEnter()">
+                <input matInput [(ngModel)]="pokemonName" placeholder="Name" (keyup.enter)="onEnter()" autocomplete="off">
             </mat-form-field>
         </div>
         
-        <div>
+        <div class="pokemon-card">
             <mat-card *ngIf="pokemonImage != ''">
                 <mat-card-content>
                     <img ngSrc="{{pokemonImage}}" width="200" height="200" priority>
                 </mat-card-content>
             </mat-card>
+        </div>
+
+        <div class="pokedex-info" *ngIf="pokemonPokedexDesc != ''">
+            <p>{{pokemonPokedexDesc}}</p>
         </div>
     </div>
 </div>

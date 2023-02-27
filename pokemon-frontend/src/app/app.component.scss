@@ -15,3 +15,18 @@ mat-card{
 .pokemon-form{
     text-align: center;
 }
+
+.pokemon-card{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokedex-info, .pokemon-card{
+    width: 400px;
+}
+
+mat-form-field, mat-label, p{
+    font-family: PokemonGB;
+}
