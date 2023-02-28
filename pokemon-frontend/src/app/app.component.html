@@ -6,7 +6,7 @@
     <div class="pokemon-form">
         <div>
             <mat-form-field appearance="outline">
-                <mat-label>Pokemon</mat-label>
+                <mat-label>Pokémon</mat-label>
                 <input matInput [(ngModel)]="pokemonName" placeholder="Name" (keyup.enter)="onEnter()" autocomplete="off">
             </mat-form-field>
         </div>
@@ -19,8 +19,8 @@
             </mat-card>
         </div>
 
-        <div class="pokedex-info" *ngIf="pokemonPokedexDesc != ''">
-            <p>{{pokemonPokedexDesc}}</p>
+        <div class="pokedex-info">
+            <p *ngIf="animatedPokedexDesc != ''">{{animatedPokedexDesc}}</p>
         </div>
     </div>
 </div>

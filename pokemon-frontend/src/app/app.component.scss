@@ -23,8 +23,16 @@ mat-card{
     align-items: center;
 }
 
+.pokedex-info{
+    height: 300px;
+}
+
 .pokedex-info, .pokemon-card{
     width: 400px;
+}
+
+p{
+    padding-top: 10px;
 }
 
 mat-form-field, mat-label, p{
