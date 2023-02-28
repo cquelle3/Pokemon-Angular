@@ -1,26 +1,27 @@
 <head>
     <link rel="preconnect" href="https://raw.githubusercontent.com">
 </head>
+<body>
+    <div class="pokemon-container">
+        <div class="pokemon-form">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Pokémon</mat-label>
+                    <input matInput [(ngModel)]="pokemonName" placeholder="Name" (keyup.enter)="onEnter()" autocomplete="off">
+                </mat-form-field>
+            </div>
+            
+            <div class="pokemon-card">
+                <mat-card>
+                    <mat-card-content>
+                        <img *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="200" height="200" priority>
+                    </mat-card-content>
+                </mat-card>
+            </div>
 
-<div class="pokemon-container">
-    <div class="pokemon-form">
-        <div>
-            <mat-form-field appearance="outline">
-                <mat-label>Pokémon</mat-label>
-                <input matInput [(ngModel)]="pokemonName" placeholder="Name" (keyup.enter)="onEnter()" autocomplete="off">
-            </mat-form-field>
-        </div>
-        
-        <div class="pokemon-card">
-            <mat-card *ngIf="pokemonImage != ''">
-                <mat-card-content>
-                    <img ngSrc="{{pokemonImage}}" width="200" height="200" priority>
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-        <div class="pokedex-info">
-            <p *ngIf="animatedPokedexDesc != ''">{{animatedPokedexDesc}}</p>
+            <div class="pokedex-info">
+                <p *ngIf="animatedPokedexDesc != ''">{{animatedPokedexDesc}}</p>
+            </div>
         </div>
     </div>
-</div>
+</body>

@@ -4,22 +4,30 @@ import { Observable } from 'rxjs';
 
 const POKE_API_URL = "https://pokeapi.co/api/v2/";
 
-interface Pokemon{
-  sprites: PokemonSprites;
-  species: PokemonSpeciesLink;
+export interface PokemonList{
+  count: number;
+  next: string;
+  previous: string;
+  results: PokemonLink[];
 }
 
-interface PokemonSprites{
+export interface Pokemon{
+  sprites: PokemonSprites;
+  species: PokemonLink;
+}
+
+export interface PokemonSprites{
   front_default: string;
+  front_shiny: string;
   versions: any;
 }
 
-interface PokemonSpeciesLink{
+export interface PokemonLink{
   name: string;
   url: string;
 }
 
-interface PokemonSpecies{
+export interface PokemonSpecies{
   flavor_text_entries: PokedexText[];
 }
 
@@ -44,5 +52,10 @@ export class PokeApiServiceService {
 
   getSpeciesInfo(url: string): Observable<PokemonSpecies>{
     return this.http.get<PokemonSpecies>(url);
+  }
+
+  getGen1Pokemon(): Observable<PokemonList>{
+    let url = POKE_API_URL + 'pokemon?limit=151';
+    return this.http.get<PokemonList>(url);
   }
 }
