@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-menu',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class MainMenuComponent {
 
+  constructor(private router: Router){}
+
+  openPokedex(){
+    this.router.navigateByUrl('/pokedex');
+  }
 }
