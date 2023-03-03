@@ -5,12 +5,6 @@
     <div class="pokemon-container">
         <div class="pokemon-form">
             <div>
-                <!--
-                <mat-form-field appearance="outline">
-                    <mat-label>Pokémon</mat-label>
-                    <input matInput [(ngModel)]="pokemonName" placeholder="Name" (keyup.enter)="onEnter()" autocomplete="off">
-                </mat-form-field>
-                -->
                 <p>{{pokemonName}}</p>
                 <p>NO. {{pokedexIndex + 1}}</p>
             </div>
@@ -22,11 +16,9 @@
                     </button>
                 </div>
 
-                <mat-card>
-                    <mat-card-content>
-                        <img *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="200" height="200" priority>
-                    </mat-card-content>
-                </mat-card>
+                <div class="pokemon-box">
+                    <img *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="170" height="170" priority>
+                </div>
 
                 <div class="arrow-button">
                     <button mat-icon-button (click)="navigatePokemonRight()" *ngIf="pokedexIndex < gen1Pokemon.length-1">

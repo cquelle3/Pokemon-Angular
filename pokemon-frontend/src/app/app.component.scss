@@ -1,7 +1,17 @@
-mat-card{
-    width: fit-content;
-    height: fit-content;
-    border-radius: 20px;
+body{
+    background-color: rgb(211, 230, 255);
+}
+
+img{
+    padding-top: 30px;
+}
+
+.pokemon-box{
+    height: 200px;
+    width: 200px;
+    background-image: url('../assets/PokedexBoxBG.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
 .pokemon-container{
