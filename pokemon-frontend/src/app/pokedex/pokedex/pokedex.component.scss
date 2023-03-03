@@ -1,0 +1,52 @@
+body{
+    background-color: rgb(211, 230, 255);
+}
+
+.pokemon-sprite{
+    padding-top: 30px;
+}
+
+.pokemon-box{
+    height: 200px;
+    width: 200px;
+    background-image: url('../../../assets/PokedexBoxBG.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.pokemon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.pokemon-form{
+    text-align: center;
+}
+
+.pokemon-card{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokedex-info{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.arrow-button{
+    width: 50px;
+    height: 50px;
+}
+
+.pokedex-info, .pokemon-card{
+    width: 400px;
+}
+
+mat-form-field, mat-label, p{
+    font-family: PokemonGB;
+}

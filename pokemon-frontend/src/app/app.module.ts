@@ -9,13 +9,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
+import { PokedexComponent } from './pokedex/pokedex/pokedex.component';
+import { MainMenuComponent } from './main-menu/main-menu/main-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PokedexComponent,
+    MainMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +33,12 @@ import { AppComponent } from './app.component';
     FormsModule,
     MatButtonModule,
     MatIconModule,
+    
+    RouterModule.forRoot([
+      { path: '', redirectTo: 'main-menu', pathMatch: 'full' },
+      {path: 'pokedex', component: PokedexComponent},
+      {path: 'main-menu', component: MainMenuComponent},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
