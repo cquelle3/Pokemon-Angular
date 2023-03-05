@@ -15,12 +15,14 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PokedexComponent } from './pokedex/pokedex/pokedex.component';
 import { MainMenuComponent } from './main-menu/main-menu/main-menu.component';
+import { CatchPokemonComponent } from './catch-pokemon/catch-pokemon/catch-pokemon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokedexComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    CatchPokemonComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { MainMenuComponent } from './main-menu/main-menu/main-menu.component';
     RouterModule.forRoot([
       { path: '', redirectTo: 'main-menu', pathMatch: 'full' },
       {path: 'pokedex', component: PokedexComponent},
+      {path: 'catch-pokemon', component: CatchPokemonComponent},
       {path: 'main-menu', component: MainMenuComponent},
     ]),
   ],

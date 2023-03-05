@@ -23,4 +23,8 @@ export class MainMenuComponent implements OnInit {
   openPokedex(){
     this.router.navigateByUrl('/pokedex');
   }
+
+  openCatchPokemon(){
+    this.router.navigateByUrl('/catch-pokemon');
+  }
 }

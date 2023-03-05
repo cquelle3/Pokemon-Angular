@@ -1,0 +1,33 @@
+.pokemon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.pokemon-spot{
+    display: flex;
+    justify-content: center;
+    background-image: url('../../../assets/Grass.png');
+    background-position: bottom;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 250px;
+}
+
+.buttons{
+    padding-top: 50px;
+    padding-bottom: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    animation: fadeIn 3s;
+}
+
+@keyframes fadeIn{
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}

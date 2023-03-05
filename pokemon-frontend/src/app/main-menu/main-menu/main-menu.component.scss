@@ -3,3 +3,10 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.pokemon-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
