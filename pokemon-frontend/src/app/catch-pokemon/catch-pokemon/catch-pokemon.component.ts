@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PokeApiServiceService, PokemonLink, PokemonList } from 'src/app/poke-api-service.service';
 import { PokemonStorageService, CaughtPokemon } from 'src/app/pokemon-storage.service';
 import { Subscription } from 'rxjs';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
 
 @Component({
   selector: 'app-catch-pokemon',
@@ -10,15 +10,31 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrls: ['./catch-pokemon.component.scss'],
   animations: [
     trigger('throwPokeball', [
-      state('start', style({
-        transform: 'translateY(-200px)'
+      state('throw', style({
+        transform: 'translateY(-350px)',
+        width: '30px',
+        height: '30px',
       })),
-      transition('* => start', [
+      state('open', style({
+        "background-image": "url('../../../assets/PokeballOpen.png')",
+        "height": '40px'
+      })),
+      state('close', style({
+        "background-image": "url('../../../assets/Pokeball.png')",
+        "height": '30px'
+      })),
+      transition('* => throw', [
         animate('1s')
       ]),
-      transition('start => *', [
-        animate('1s')
-      ])
+      transition('throw => open', [
+        animate('0.3s')
+      ]),
+      transition('open => close', [
+        animate('0.3s')
+      ]),
+      transition('close => *', [
+        animate('5s')
+      ]),
     ]),
   ]
 })
@@ -29,8 +45,9 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
   pokemonName: string = "";
   isPokemonShiny: boolean = false;
   shinyChance: number = .2;
-
   randomEncounterInterval: any;
+  currentAnimState: string = "";
+  isCatching: boolean = false;
 
   subscriptionList: Subscription[] = [];
 
@@ -46,6 +63,8 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
           this.startRandomEncounter();
         }
       }));
+
+      this.currentAnimState = "throw";
   }
 
   startRandomEncounter(){
@@ -78,8 +97,13 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
     }));
   }
 
-  catchPokemon(){
+  catchTrigger(){
+    this.isCatching = true;
     clearInterval(this.randomEncounterInterval);
+  }
+
+  catchPokemon(){
+    this.pokemonImage = "";
 
     let pokemon: CaughtPokemon = {
       name: this.pokemonName,
@@ -88,8 +112,26 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
 
     this.subscriptionList.push(this.pokemonStorageService.postCaughtPokemon(pokemon).subscribe((res) => {
       console.log(res);
-      this.startRandomEncounter();
     }));
+  }
+
+  pokeballAnimationFinished(event: AnimationEvent){
+    console.log(event);
+    if(event.toState == 'throw'){
+      this.currentAnimState = 'open';
+    }
+    else if(event.toState == 'open'){
+      this.currentAnimState = 'close';
+      this.catchPokemon();
+    }
+    else if(event.toState == 'close'){
+      this.currentAnimState = '*';
+    }
+    else if(event.toState == '*'){
+      this.isCatching = false;
+      this.startRandomEncounter();
+      this.currentAnimState = 'throw';
+    }
   }
 
   ngOnDestroy(): void {

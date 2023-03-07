@@ -14,11 +14,11 @@
             </div>
 
             <div class="buttons">
-                <button mat-button (click)="catchPokemon()">Catch!</button>
+                <button *ngIf="!isCatching" mat-button (click)="catchTrigger()">Catch!</button>
+            </div>
 
-                <div [@throwPokeball]="'start'">
-                    <img ngSrc="../../../assets/Pokeball.png" width="30" height="30" priority>
-                </div>
+            <div class="pokeball-container">
+                <div *ngIf="isCatching" class="pokeball" [@throwPokeball]="currentAnimState" (@throwPokeball.done)="pokeballAnimationFinished($event)"></div>
             </div>
         </div>
     </div>

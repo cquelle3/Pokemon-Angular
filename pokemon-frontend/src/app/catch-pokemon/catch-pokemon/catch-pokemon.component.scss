@@ -27,6 +27,20 @@
     animation: fadeIn 3s;
 }
 
+.pokeball-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokeball{
+    width: 100px;
+    height: 100px;
+    background-image: url('../../../assets/Pokeball.png');
+    background-size: cover;
+    background-repeat: none;
+}
+
 @keyframes fadeIn{
     0% { opacity: 0; }
     100% { opacity: 1; }
