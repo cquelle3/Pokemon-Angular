@@ -2,11 +2,25 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PokeApiServiceService, PokemonLink, PokemonList } from 'src/app/poke-api-service.service';
 import { PokemonStorageService, CaughtPokemon } from 'src/app/pokemon-storage.service';
 import { Subscription } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-catch-pokemon',
   templateUrl: './catch-pokemon.component.html',
-  styleUrls: ['./catch-pokemon.component.scss']
+  styleUrls: ['./catch-pokemon.component.scss'],
+  animations: [
+    trigger('throwPokeball', [
+      state('start', style({
+        transform: 'translateY(-200px)'
+      })),
+      transition('* => start', [
+        animate('1s')
+      ]),
+      transition('start => *', [
+        animate('1s')
+      ])
+    ]),
+  ]
 })
 export class CatchPokemonComponent implements OnInit, OnDestroy{
 

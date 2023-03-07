@@ -8,13 +8,17 @@
             <div class="pokemon-spot">
 
                 <div class="pokemon-image">
-                    <img *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="250" height="250" priority>
+                    <img class="pokemon-sprite" *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="250" height="250" priority>
                 </div>
                 
             </div>
 
             <div class="buttons">
                 <button mat-button (click)="catchPokemon()">Catch!</button>
+
+                <div [@throwPokeball]="'start'">
+                    <img ngSrc="../../../assets/Pokeball.png" width="30" height="30" priority>
+                </div>
             </div>
         </div>
     </div>
