@@ -20,7 +20,7 @@ export class PokemonStorageService {
   }
 
   getCaughtPokemon(){
-    return this.http.get(POKE_API_URL + '/caughtPokemon');
+    return this.http.get<CaughtPokemon[]>(POKE_API_URL + '/caughtPokemon');
   }
 
   postCaughtPokemon(pokemon: CaughtPokemon){

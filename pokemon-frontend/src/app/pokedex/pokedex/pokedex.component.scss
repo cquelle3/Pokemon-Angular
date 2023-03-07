@@ -47,6 +47,10 @@ body{
     width: 400px;
 }
 
-mat-form-field, mat-label, p{
+.pokemon-missing{
+    padding-top: 70px;
+}
+
+mat-form-field, mat-label, p, h1{
     font-family: PokemonGB;
 }

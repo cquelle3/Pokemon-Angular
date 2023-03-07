@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PokeApiServiceService, PokemonLink } from 'src/app/poke-api-service.service';
+import { CaughtPokemon, PokemonStorageService } from 'src/app/pokemon-storage.service';
+
+interface caughtPokemonObj {
+  [key: string] : string
+}
 
 @Component({
   selector: 'app-pokedex',
@@ -9,6 +14,9 @@ import { PokeApiServiceService, PokemonLink } from 'src/app/poke-api-service.ser
 })
 export class PokedexComponent implements OnInit, OnDestroy{
   gen1Pokemon: PokemonLink[] = [];
+  caughtPokemon: CaughtPokemon[] = [];
+  caughtPokemonCheck: caughtPokemonObj = {};
+  hasCaught: boolean = true;
   pokemonName: String = "";
   pokemonImage: String = "";
   pokemonPokedexDesc: String = "";
@@ -18,11 +26,12 @@ export class PokedexComponent implements OnInit, OnDestroy{
 
   subscriptionList: Subscription[] = [];
 
-  constructor(private pokeApiService: PokeApiServiceService)
-  {}
+  constructor(
+    private pokeApiService: PokeApiServiceService,
+    private pokemonStorageService: PokemonStorageService
+  ) {}
 
   ngOnInit(): void {
-
     //pull gen 1 pokemon list
     this.subscriptionList.push(this.pokeApiService.getGen1Pokemon().subscribe((data) => {
       if(data){
@@ -31,47 +40,65 @@ export class PokedexComponent implements OnInit, OnDestroy{
       }
     }));
 
+    //pull list of pokemon we have caught
+    this.subscriptionList.push(this.pokemonStorageService.getCaughtPokemon().subscribe((data) => {
+      if(data){
+        this.caughtPokemon = data;
+        //create an object to help check which pokemon are missing from pokedex
+        for(var pokemon of this.caughtPokemon){
+          if(this.caughtPokemonCheck[pokemon.name] == undefined){
+            this.caughtPokemonCheck[pokemon.name] = '';
+          }
+        }
+      }
+    }));
   }
 
-  //reset image, pokedex description, clear animation interval, and pull info for selected pokemon
-  // onEnter(){
-  //   this.pokemonImage = "";
-  //   this.pokemonPokedexDesc = "";
-  //   this.animatedPokedexDesc = "";
-  //   if(this.typeAnimationInterval != undefined){
-  //     clearInterval(this.typeAnimationInterval);
-  //   }
-  //   this.loadPokemonInfo(this.pokemonName);
-  // }
+  //load pokemon information
+  loadPokemonInfo(name: string){
+    //we have not caught this pokemon
+    if(this.caughtPokemonCheck[name] == undefined){
+      this.hasCaught = false;
+      this.pokemonName = "";
 
-  loadPokemonInfo(name: String){
-    //get pokemon sprite
-    this.subscriptionList.push(this.pokeApiService.getPokemonInfo(name.trim().toLowerCase()).subscribe(
-      (data) => {
-        if(data){
-          //set pokemon image link
-          this.pokemonImage = data.sprites.front_default;
-          this.pokemonName = data.species.name.charAt(0).toUpperCase() + data.species.name.slice(1);
+      //stop typing animation and reset pokedex description
+      if(this.typeAnimationInterval != undefined){
+        clearInterval(this.typeAnimationInterval);
+        this.animatedPokedexDesc = "";
+      }
+    }
+    else{
+      //we have caught this pokemon
+      this.hasCaught = true;
 
-          //get pokemon pokedex description
-          this.subscriptionList.push(this.pokeApiService.getSpeciesInfo(data.species.url).subscribe((speciesData) => {
-            //get the original pokedex description
-            var pokedex_entry = speciesData.flavor_text_entries.find((entry) => entry.language['name'] == 'en' && entry.version['name'] == 'red');
-            this.pokemonPokedexDesc = pokedex_entry?.flavor_text!;
-            this.pokemonPokedexDesc = this.pokemonPokedexDesc.replace('\f', ' ');
+      //get pokemon sprite
+      this.subscriptionList.push(this.pokeApiService.getPokemonInfo(name.trim().toLowerCase()).subscribe(
+        (data) => {
+          if(data){
+            //set pokemon image link
+            this.pokemonImage = data.sprites.front_default;
+            this.pokemonName = data.species.name.charAt(0).toUpperCase() + data.species.name.slice(1);
 
-            //start type animation for pokedex description
-            if(this.typeAnimationInterval != undefined){
-              clearInterval(this.typeAnimationInterval);
-              this.animatedPokedexDesc = "";
-            }
-            this.typePokedexDescription(this.pokemonPokedexDesc);
-          }));
+            //get pokemon pokedex description
+            this.subscriptionList.push(this.pokeApiService.getSpeciesInfo(data.species.url).subscribe((speciesData) => {
+              //get the original pokedex description
+              var pokedex_entry = speciesData.flavor_text_entries.find((entry) => entry.language['name'] == 'en' && entry.version['name'] == 'red');
+              this.pokemonPokedexDesc = pokedex_entry?.flavor_text!;
+              this.pokemonPokedexDesc = this.pokemonPokedexDesc.replace('\f', ' ');
 
+              //stop typing animation and reset pokedex description
+              if(this.typeAnimationInterval != undefined){
+                clearInterval(this.typeAnimationInterval);
+                this.animatedPokedexDesc = "";
+              }
+              //start type animation for pokedex description
+              this.typePokedexDescription(this.pokemonPokedexDesc);
+            }));
+
+          }
         }
-      },
-      (err: Error) => {}
-    ));
+      ));
+    }
   }
 
   navigatePokemonLeft(){

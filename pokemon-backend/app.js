@@ -26,7 +26,11 @@ app.get('/caughtPokemon', async (req, res) => {
 app.post('/caughtPokemon', async (req, res) => {
     const poke = new models.Pokemon(req.body);
     poke.save().then(
-        () => console.log("One entry added"),
+        () => {
+            console.log("One entry added");
+            res.status(200);
+            res.send({info: 'Added ' + req.name + ' to pokemon storage'});
+        },
         (err) => console.log(err)
     );
 });

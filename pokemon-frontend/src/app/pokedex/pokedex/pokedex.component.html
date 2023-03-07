@@ -17,8 +17,11 @@
                 </div>
 
                 <div class="pokemon-box">
-                    <div class="pokemon-sprite">
+                    <div class="pokemon-sprite" *ngIf="hasCaught">
                         <img *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="170" height="170" priority>
+                    </div>
+                    <div class="pokemon-missing" *ngIf="!hasCaught">
+                        <h1>?</h1>
                     </div>
                 </div>
 

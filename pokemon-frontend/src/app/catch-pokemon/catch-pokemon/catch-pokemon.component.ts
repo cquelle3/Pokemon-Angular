@@ -14,6 +14,7 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
   pokemonImage: string = "";
   pokemonName: string = "";
   isPokemonShiny: boolean = false;
+  shinyChance: number = .2;
 
   randomEncounterInterval: any;
 
@@ -28,48 +29,42 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
       this.subscriptionList.push(this.pokeApiService.getGen1Pokemon().subscribe((gen1Pokemon) => {
         if(gen1Pokemon){
           this.gen1Pokemon = gen1Pokemon.results;
-          
-          this.subscriptionList.push(this.pokeApiService.getPokemonInfo(this.gen1Pokemon[0].name).subscribe((data) => {
-            if(data){
-              this.pokemonImage = data.sprites.front_default;
-            }
-          }))
-
-          this.randomEncounter();
+          this.startRandomEncounter();
         }
       }));
   }
 
-  randomEncounter(){
-
+  startRandomEncounter(){
+    this.randomEncounter();
     this.randomEncounterInterval = setInterval(() => {
-      this.pokemonImage = "";
-      this.pokemonName = "";
-
-      let pokemonIndex = Math.floor(Math.random() * ((this.gen1Pokemon.length - 1) - 0 + 1)) + 0;
-      this.pokemonName = this.gen1Pokemon[pokemonIndex].name;
-
-      this.subscriptionList.push(this.pokeApiService.getPokemonInfo(this.pokemonName).subscribe((pokemonInfo) => {
-        if(pokemonInfo){
-
-          let shinyChance = Math.random();
-          if(shinyChance > .5){
-            this.pokemonImage = pokemonInfo.sprites.front_shiny;
-            this.isPokemonShiny = true;
-          }
-          else{
-            this.pokemonImage = pokemonInfo.sprites.front_default;
-            this.isPokemonShiny = false;
-          }
-        }
-      }));
-
+      this.randomEncounter();
     }, 10000);
   }
 
+  randomEncounter(){
+    this.pokemonImage = "";
+    this.pokemonName = "";
+
+    let pokemonIndex = Math.floor(Math.random() * ((this.gen1Pokemon.length - 1) - 0 + 1)) + 0;
+    this.pokemonName = this.gen1Pokemon[pokemonIndex].name;
+
+    this.subscriptionList.push(this.pokeApiService.getPokemonInfo(this.pokemonName).subscribe((pokemonInfo) => {
+      if(pokemonInfo){
+
+        let shiny = Math.random();
+        if(shiny < this.shinyChance){
+          this.pokemonImage = pokemonInfo.sprites.front_shiny;
+          this.isPokemonShiny = true;
+        }
+        else{
+          this.pokemonImage = pokemonInfo.sprites.front_default;
+          this.isPokemonShiny = false;
+        }
+      }
+    }));
+  }
+
   catchPokemon(){
-    console.log(this.pokemonName);
-    console.log(this.isPokemonShiny);
     clearInterval(this.randomEncounterInterval);
 
     let pokemon: CaughtPokemon = {
@@ -78,9 +73,8 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
     }
 
     this.subscriptionList.push(this.pokemonStorageService.postCaughtPokemon(pokemon).subscribe((res) => {
-      if(res){
-        console.log(res);
-      }
+      console.log(res);
+      this.startRandomEncounter();
     }));
   }
 
