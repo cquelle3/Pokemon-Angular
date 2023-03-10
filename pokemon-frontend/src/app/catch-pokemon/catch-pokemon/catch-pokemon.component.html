@@ -5,6 +5,10 @@
 
     <div class="pokemon-container">
         <div class="pokemon-form">
+            <div class="catch-text">
+                <p *ngIf="showCatchText">Caught {{pokemonName | titlecase}}!</p>
+            </div>
+
             <div class="pokemon-spot">
 
                 <div class="pokemon-image">
@@ -16,7 +20,7 @@
             <div class="buttons">
                 <button *ngIf="!isCatching" mat-button (click)="catchTrigger()">Catch!</button>
             </div>
-
+            
             <div class="pokeball-container">
                 <div *ngIf="isCatching" class="pokeball" [@throwPokeball]="currentAnimState" (@throwPokeball.done)="pokeballAnimationFinished($event)"></div>
             </div>

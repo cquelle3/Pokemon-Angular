@@ -11,7 +11,7 @@ import { animate, state, style, transition, trigger, AnimationEvent } from '@ang
   animations: [
     trigger('throwPokeball', [
       state('throw', style({
-        transform: 'translateY(-350px)',
+        transform: 'translateY(-380px)',
         width: '30px',
         height: '30px',
       })),
@@ -48,6 +48,7 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
   randomEncounterInterval: any;
   currentAnimState: string = "";
   isCatching: boolean = false;
+  showCatchText: boolean = false;
 
   subscriptionList: Subscription[] = [];
 
@@ -116,7 +117,6 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
   }
 
   pokeballAnimationFinished(event: AnimationEvent){
-    console.log(event);
     if(event.toState == 'throw'){
       this.currentAnimState = 'open';
     }
@@ -126,11 +126,13 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
     }
     else if(event.toState == 'close'){
       this.currentAnimState = '*';
+      this.showCatchText = true;
     }
     else if(event.toState == '*'){
-      this.isCatching = false;
-      this.startRandomEncounter();
       this.currentAnimState = 'throw';
+      this.isCatching = false;
+      this.showCatchText = false;
+      this.startRandomEncounter();
     }
   }
 

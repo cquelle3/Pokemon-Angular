@@ -1,12 +1,42 @@
 body{
-    background-image: url('../../../assets/MainMenuBG.png');
+    background-image: url('../../../assets/MainMenuBG3.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.pokemon-logo{
+.pokemon-image{
+    width: 25%;
+    height: auto;
+}
+
+.menu{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+.menu-column{
+    padding-bottom: 300px;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.buttons{
+    padding-top: 50px;
+}
+
+button{
+    font-family:'Segoe UI';
 }

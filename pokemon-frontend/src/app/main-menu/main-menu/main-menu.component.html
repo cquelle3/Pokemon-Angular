@@ -1,8 +1,18 @@
 <body>
-    <button mat-button (click)="openPokedex()">Pokedex</button>
-    <button mat-button (click)="openCatchPokemon()">Catch Pokemon</button>
+    <div class="menu">
+        <div class="menu-column">
+            <div class="logo">
+                <img class="pokemon-image" ngSrc="../../../assets/PokemonLogo.png" width="600" height="220" priority>
+            </div>
 
-    <div class="pokemon-logo">
-        <img ngSrc="../../../assets/PokemonLogo.png" width="800" height="300" priority>
+            <div class="buttons">
+                <div class="menu-button">
+                    <button mat-raised-button color="primary" (click)="openCatchPokemon()">Catch Pokemon</button>
+                </div>
+                <div class="menu-button">
+                    <button mat-raised-button color="accent" (click)="openPokedex()">Pokedex</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>

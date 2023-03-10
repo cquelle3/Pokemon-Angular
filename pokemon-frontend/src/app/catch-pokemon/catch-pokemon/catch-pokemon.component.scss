@@ -1,3 +1,9 @@
+body{
+    background-image: url('../../../assets/PokemonAreaBG2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .pokemon-container{
     display: flex;
     justify-content: center;
@@ -33,12 +39,25 @@
     align-items: center;
 }
 
-.pokeball{
-    width: 100px;
+.catch-text{
+    display: flex;
+    justify-content: center;
+}
+
+.pokeball-container{
+    width: 500px;
     height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pokeball{
     background-image: url('../../../assets/Pokeball.png');
     background-size: cover;
     background-repeat: none;
+    width: 100px;
+    height: 100px;
 }
 
 @keyframes fadeIn{
