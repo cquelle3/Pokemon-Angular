@@ -1,5 +1,19 @@
 body{
-    background-color: rgb(211, 230, 255);
+    background-color: rgb(149, 212, 248);
+    // background-image: url('../../../assets/PokedexBG.png');
+    // background-size: cover;
+    // background-repeat: no-repeat;
+}
+
+.button-header{
+    width: 100%;
+}
+
+.back-button{
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
 }
 
 .pokemon-sprite{

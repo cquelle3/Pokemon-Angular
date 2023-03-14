@@ -3,6 +3,7 @@ import { PokeApiServiceService, PokemonLink, PokemonList } from 'src/app/poke-ap
 import { PokemonStorageService, CaughtPokemon } from 'src/app/pokemon-storage.service';
 import { Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catch-pokemon',
@@ -11,7 +12,7 @@ import { animate, state, style, transition, trigger, AnimationEvent } from '@ang
   animations: [
     trigger('throwPokeball', [
       state('throw', style({
-        transform: 'translateY(-380px)',
+        transform: 'translateY(-420px)',
         width: '30px',
         height: '30px',
       })),
@@ -55,6 +56,7 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
   constructor(
     private pokeApiService: PokeApiServiceService,
     private pokemonStorageService: PokemonStorageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -134,6 +136,10 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
       this.showCatchText = false;
       this.startRandomEncounter();
     }
+  }
+
+  backButton(){
+    this.router.navigate(['/main-menu']);
   }
 
   ngOnDestroy(): void {

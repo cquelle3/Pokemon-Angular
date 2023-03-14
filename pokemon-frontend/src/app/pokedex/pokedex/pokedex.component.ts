@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PokeApiServiceService, PokemonLink } from 'src/app/poke-api-service.service';
 import { CaughtPokemon, PokemonStorageService } from 'src/app/pokemon-storage.service';
@@ -28,17 +29,11 @@ export class PokedexComponent implements OnInit, OnDestroy{
 
   constructor(
     private pokeApiService: PokeApiServiceService,
-    private pokemonStorageService: PokemonStorageService
+    private pokemonStorageService: PokemonStorageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    //pull gen 1 pokemon list
-    this.subscriptionList.push(this.pokeApiService.getGen1Pokemon().subscribe((data) => {
-      if(data){
-        this.gen1Pokemon = data.results;
-        this.loadPokemonInfo(this.gen1Pokemon[this.pokedexIndex].name);
-      }
-    }));
 
     //pull list of pokemon we have caught
     this.subscriptionList.push(this.pokemonStorageService.getCaughtPokemon().subscribe((data) => {
@@ -50,6 +45,14 @@ export class PokedexComponent implements OnInit, OnDestroy{
             this.caughtPokemonCheck[pokemon.name] = '';
           }
         }
+
+        //pull gen 1 pokemon list
+        this.subscriptionList.push(this.pokeApiService.getGen1Pokemon().subscribe((data) => {
+          if(data){
+            this.gen1Pokemon = data.results;
+            this.loadPokemonInfo(this.gen1Pokemon[this.pokedexIndex].name);
+          }
+        }));
       }
     }));
   }
@@ -70,7 +73,7 @@ export class PokedexComponent implements OnInit, OnDestroy{
     else{
       //we have caught this pokemon
       this.hasCaught = true;
-
+ 
       //get pokemon sprite
       this.subscriptionList.push(this.pokeApiService.getPokemonInfo(name.trim().toLowerCase()).subscribe(
         (data) => {
@@ -124,6 +127,10 @@ export class PokedexComponent implements OnInit, OnDestroy{
         clearInterval(this.typeAnimationInterval);
       }
     }, 50);
+  }
+
+  backButton(){
+    this.router.navigate(['/main-menu']);
   }
 
   ngOnDestroy(): void {

@@ -3,6 +3,14 @@
 </head>
 <body>
 
+    <div class="button-header">
+        <div class="back-button">
+            <button mat-stroked-button (click)="backButton()">Back 
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </div>
+
     <div class="pokemon-container">
         <div class="pokemon-form">
             <div class="catch-text">
@@ -18,7 +26,7 @@
             </div>
 
             <div class="buttons">
-                <button *ngIf="!isCatching" mat-button (click)="catchTrigger()">Catch!</button>
+                <button *ngIf="!isCatching" mat-raised-button color="warn" (click)="catchTrigger()">Catch!</button>
             </div>
             
             <div class="pokeball-container">

@@ -1,7 +1,19 @@
 body{
-    background-image: url('../../../assets/PokemonAreaBG2.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: rgb(192, 255, 235);
+    //background-image: url('../../../assets/PokemonAreaBG2.jpg');
+    //background-size: cover;
+    //background-repeat: no-repeat;
+}
+
+.button-header{
+    width: 100%;
+}
+
+.back-button{
+    display: flex;
+    justify-content: right;
+    padding-top: 20px;
+    padding-right: 20px;
 }
 
 .pokemon-container{
@@ -14,7 +26,7 @@ body{
 .pokemon-spot{
     display: flex;
     justify-content: center;
-    background-image: url('../../../assets/Grass.png');
+    background-image: url('../../../assets/Grass2.png');
     background-position: bottom;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -27,6 +39,7 @@ body{
     padding-bottom: 200px;
     display: flex;
     justify-content: center;
+    height: 50px;
 }
 
 .pokemon-sprite{
@@ -42,6 +55,7 @@ body{
 .catch-text{
     display: flex;
     justify-content: center;
+    height: 50px;
 }
 
 .pokeball-container{
@@ -63,4 +77,13 @@ body{
 @keyframes fadeIn{
     0% { opacity: 0; }
     100% { opacity: 1; }
+}
+
+button{
+    font-family:'Segoe UI';
+}
+
+p{
+    font-family:'Segoe UI';
+    font-weight: bold;
 }
