@@ -15,35 +15,44 @@
         <div class="pokemon-form">
             <div>
                 <p>{{pokemonName}}</p>
-                <p>NO. {{pokedexIndex + 1}}</p>
+                <p *ngIf="pokedexIndex != 0">NO. {{pokedexIndex}}</p>
             </div>
             
             <div class="pokemon-card">
-                <div class="arrow-button">
-                    <button mat-icon-button (click)="navigatePokemonLeft()" *ngIf="pokedexIndex > 0">
-                        <mat-icon>keyboard_arrow_left</mat-icon>
-                    </button>
-                </div>
-
-                <div class="pokemon-box">
-                    <div class="pokemon-sprite" *ngIf="hasCaught">
+                <div class="pokemon-box" [style.background-image]="'url(../../../assets/' + pokedexBGImage + ')'">
+                    <div class="pokemon-sprite" *ngIf="pokemonName != ''">
                         <img *ngIf="pokemonImage != ''" ngSrc="{{pokemonImage}}" width="170" height="170" priority>
                     </div>
-                    <div class="pokemon-missing" *ngIf="!hasCaught">
+                    <div class="pokemon-missing" *ngIf="pokemonName == ''">
                         <h1>?</h1>
                     </div>
-                </div>
-
-                <div class="arrow-button">
-                    <button mat-icon-button (click)="navigatePokemonRight()" *ngIf="pokedexIndex < gen1Pokemon.length-1">
-                        <mat-icon>keyboard_arrow_right</mat-icon>
-                    </button>
                 </div>
             </div>
 
             <div class="pokedex-info">
                 <p *ngIf="animatedPokedexDesc != ''">{{animatedPokedexDesc}}</p>
             </div>
+
+            <div class="pokemon-box-row">
+                <div class="arrow-button">
+                    <button mat-icon-button (click)="navigateLeftPC()" *ngIf="caughtChunkIndex > 0">
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                    </button>
+                </div>
+
+                <div class="pokemon-box-list">
+                    <ng-container *ngFor="let pokemon of caughtPokemonChunks[caughtChunkIndex]">
+                        <app-pc-pokemon (pokemonEmitter)="pcPokemonEmit($event)" [pokemonName]="pokemon.name" [pokemonShiny]="pokemon.isShiny"></app-pc-pokemon>
+                    </ng-container>
+                </div>
+
+                <div class="arrow-button">
+                    <button mat-icon-button (click)="navigateRightPC()" *ngIf="caughtChunkIndex < caughtPokemonChunks.length - 1">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+            </div>
         </div>
+
     </div>
 </body>

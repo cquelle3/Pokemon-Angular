@@ -22,7 +22,7 @@ body{
 
 .pokemon-box{
     height: 200px;
-    width: 200px;
+    width: 250px;
     background-image: url('../../../assets/PokedexBoxBG.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -47,7 +47,7 @@ body{
 }
 
 .pokedex-info{
-    height: 300px;
+    height: 200px;
     display: flex;
     justify-content: center;
 }
@@ -57,8 +57,25 @@ body{
     height: 50px;
 }
 
-.pokedex-info, .pokemon-card{
+.pokemon-box-list{
+    background-image: url('../../../assets/PokemonPC_BG1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 300px;
     width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.pokemon-box-row{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.pokedex-info, .pokemon-card, .pokemon-box-row{
+    width: 500px;
 }
 
 .pokemon-missing{

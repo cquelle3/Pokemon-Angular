@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit  } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
-import { PokemonStorageService } from 'src/app/pokemon-storage.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -11,13 +10,9 @@ export class MainMenuComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private pokemonStorageService: PokemonStorageService
   ){}
 
   ngOnInit(): void {
-      this.pokemonStorageService.getTest().subscribe((data) => {
-        console.log(data);
-      });
   }
 
   openPokedex(){

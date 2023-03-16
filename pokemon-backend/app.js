@@ -29,7 +29,7 @@ app.post('/caughtPokemon', async (req, res) => {
         () => {
             console.log("One entry added");
             res.status(200);
-            res.send({info: 'Added ' + req.name + ' to pokemon storage'});
+            res.send({info: 'Added ' + req.body['name'] + ' to pokemon storage'});
         },
         (err) => console.log(err)
     );

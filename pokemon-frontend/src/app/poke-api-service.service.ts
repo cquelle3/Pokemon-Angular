@@ -14,6 +14,12 @@ export interface PokemonList{
 export interface Pokemon{
   sprites: PokemonSprites;
   species: PokemonLink;
+  game_indices: PokemonIndex[];
+}
+
+export interface PokemonIndex{
+  game_index: number;
+  version: PokemonLink;
 }
 
 export interface PokemonSprites{

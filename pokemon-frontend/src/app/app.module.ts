@@ -16,13 +16,15 @@ import { AppComponent } from './app.component';
 import { PokedexComponent } from './pokedex/pokedex/pokedex.component';
 import { MainMenuComponent } from './main-menu/main-menu/main-menu.component';
 import { CatchPokemonComponent } from './catch-pokemon/catch-pokemon/catch-pokemon.component';
+import { PcPokemonComponent } from './pokedex/pokedex/pc-pokemon/pc-pokemon/pc-pokemon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokedexComponent,
     MainMenuComponent,
-    CatchPokemonComponent
+    CatchPokemonComponent,
+    PcPokemonComponent
   ],
   imports: [
     BrowserModule,

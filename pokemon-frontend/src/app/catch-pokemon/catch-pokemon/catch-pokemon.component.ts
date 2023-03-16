@@ -86,7 +86,6 @@ export class CatchPokemonComponent implements OnInit, OnDestroy{
 
     this.subscriptionList.push(this.pokeApiService.getPokemonInfo(this.pokemonName).subscribe((pokemonInfo) => {
       if(pokemonInfo){
-
         let shiny = Math.random();
         if(shiny < this.shinyChance){
           this.pokemonImage = pokemonInfo.sprites.front_shiny;
