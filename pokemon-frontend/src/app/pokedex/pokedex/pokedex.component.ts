@@ -14,8 +14,6 @@ interface caughtPokemonObj {
   styleUrls: ['./pokedex.component.scss']
 })
 export class PokedexComponent implements OnInit, OnDestroy{
-  gen1Pokemon: PokemonLink[] = [];
-  caughtPokemon: CaughtPokemon[] = [];
   caughtPokemonChunks: CaughtPokemon[][] = [];
   pokemonName: String = "";
   pokemonImage: String = "";
@@ -38,21 +36,12 @@ export class PokedexComponent implements OnInit, OnDestroy{
     //pull list of pokemon we have caught
     this.subscriptionList.push(this.pokemonStorageService.getCaughtPokemon().subscribe((data) => {
       if(data){
-        console.log(data);
+
         const chunkSize = 20;
         for(let i=0; i < data.length; i += chunkSize){
           const chunk = data.slice(i, i + chunkSize);
           this.caughtPokemonChunks.push(chunk);
         }
-        console.log(this.caughtPokemonChunks);
-        this.caughtPokemon = data;
-
-        //pull gen 1 pokemon list
-        this.subscriptionList.push(this.pokeApiService.getGen1Pokemon().subscribe((data) => {
-          if(data){
-            this.gen1Pokemon = data.results;
-          }
-        }));
       }
     }));
   }
